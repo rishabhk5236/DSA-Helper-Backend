@@ -26,7 +26,7 @@ router.post('/',async (req,res)=>{
         service:"gmail",
         auth:{
             user:"helpdsahelper@gmail.com",
-            pass:"oxgdnfpsbnibappm"
+            pass:"kboqqrzeuwsvvepk"
         },
         port:465,
         host:'smtp.gmail.com'
