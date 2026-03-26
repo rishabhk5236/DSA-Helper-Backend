@@ -1,42 +1,30 @@
 const express = require("express");
 const router = express.Router();
-const nodemailer = require("nodemailer");
+
 
 router.post('/', async (req, res) => {
 
 
-    // # this username and password is for sending otp 
-    USERNAME = "helpdsahelper@gmail.com"
-    PASSWORD = "fpaegunbtsryoioh"
-    let success = false;
 
 
 
-    // creating message 
+
+    // using Twilio SendGrid's v3 Node.js Library
+    // https://github.com/sendgrid/sendgrid-nodejs
+    javascript
+    const sgMail = require('@sendgrid/mail')
+    sgMail.setApiKey(process.env.SENDGRID_API_KEY)
+    // sgMail.setDataResidency('eu'); 
+    // uncomment the above line if you are sending mail using a regional EU subuser
+
     const msg = {
-        from: "helpdsahelper@gmail.com",
-        to: req.body.email,
+        to: req.body.email, // Change to your recipient
+        from: 'helpdsahelper@gmail.com', // Change to your verified sender
         subject: req.body.subject,
         html: req.body.htmlText,
-
-    };
-
-
-
-
-
-
-    nodemailer.createTransport({
-        service: "gmail",
-        auth: {
-            user: USERNAME,
-            pass: PASSWORD
-        },
-        port: 465,
-        secure: true,
-        host: 'smtp.gmail.com'
-    })
-        .sendMail(msg, (err) => {
+    }
+    sgMail
+        .send(msg, (err) => {
             if (err) {
                 return res.json({ success, error: err });
             } else {
@@ -48,4 +36,6 @@ router.post('/', async (req, res) => {
 
 })
 
+
 module.exports = router;
+
